@@ -48,5 +48,22 @@
 			'lang' => 'en',									// The language for the Tweet Button
 			'url' => null,									// URL of the page to share
 			'text' => null									// Default Tweet text
+		),
+
+		/**
+		 * Events
+		 */
+		'onCmsBeforeContentRender' => array(
+			// if you want
+		),
+		'onCmsAfterContentRender' => array(
+			'tweet'
+		),
+
+		'onBlogBeforeContentRender' => array(
+			// if you want
+		),
+		'onBlogAfterContentRender' => array(
+			'tweet'
 		)
-	 );
+	);

@@ -21,6 +21,17 @@
 	 */
 
 	 class TwitterEvents extends AppEvents{
+		private function __getConfig() {
+			$config = Configure::read('Twitter');
+
+			if(empty($config)) {
+				Configure::load('Twitter.twitter');
+				$config = Configure::read('Twitter');
+			}
+
+			return $config;
+		}
+
 		public function onSetupCache(){
 			return array(
 				'name' => 'twitter',
@@ -58,5 +69,69 @@
 			return array(
 				'http://platform.twitter.com/widgets.js'
 			);
+		}
+		
+		/**
+		 * Called before cms content is echo'ed
+		 */
+		public function onCmsBeforeContentRender(&$event, $data) {
+			$config = $this->__getConfig();
+			if(isset($config['onCmsBeforeContentRender']) && in_array('tweet', $config['onCmsBeforeContentRender'])) {
+				$link = $data['_this']->Event->trigger('cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
+				return $data['_this']->Twitter->tweetButton(
+					array(
+						'url' => Router::url(current($link['slugUrl']), true),
+						'text' => $data['content']['Content']['title']
+					)
+				);
+			}
+		}
+		
+		/**
+		 * Called after cms content is echo'ed
+		 */
+		public function onCmsAfterContentRender(&$event, $data) {
+			$config = $this->__getConfig();
+			if(isset($config['onCmsAfterContentRender']) && in_array('tweet', $config['onCmsAfterContentRender'])) {
+				$link = $data['_this']->Event->trigger('cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
+				return $data['_this']->Twitter->tweetButton(
+					array(
+						'url' => Router::url(current($link['slugUrl']), true),
+						'text' => $data['content']['Content']['title']
+					)
+				);
+			}
+		}
+
+		/**
+		 * Called before blog post is echo'ed
+		 */
+		public function onBlogBeforeContentRender(&$event, $data) {
+			$config = $this->__getConfig();
+			if(isset($config['onBlogBeforeContentRender']) && in_array('tweet', $config['onBlogBeforeContentRender'])) {
+				$link = $data['_this']->Event->trigger('blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
+				return $data['_this']->Twitter->tweetButton(
+					array(
+						'url' => Router::url(current($link['slugUrl']), true),
+						'text' => $data['content']['Post']['title']
+					)
+				);
+			}
+		}
+
+		/**
+		 * Called after blog post is echo'ed
+		 */
+		public function onBlogAfterContentRender(&$event, $data) {
+			$config = $this->__getConfig();
+			if(isset($config['onBlogAfterContentRender']) && in_array('tweet', $config['onBlogAfterContentRender'])) {
+				$link = $data['_this']->Event->trigger('blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
+				return $data['_this']->Twitter->tweetButton(
+					array(
+						'url' => Router::url(current($link['slugUrl']), true),
+						'text' => $data['content']['Post']['title']
+					)
+				);
+			}
 		}
 	 }
