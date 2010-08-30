@@ -20,8 +20,8 @@
 	 * Redistributions of files must retain the above copyright notice.
 	 */
 
-	 class TwitterEvents{
-		 public function onCacheSetup(){
+	 class TwitterEvents extends AppEvents{
+		public function onSetupCache(){
 			return array(
 				'name' => 'twitter',
 				'config' => array(
@@ -32,5 +32,31 @@
 					'serialize' => true
 				)
 			);
-		 }
+		}
+
+		public function onSetupConfig(){
+		}
+
+		public function onRequireComponentsToLoad(){
+			Configure::load('Twitter.config');
+			return array(
+				//'Twitter.Twitter'
+			);
+		}
+
+		public function onRequireHelpersToLoad(){
+			return array(
+				'Twitter.Twitter'
+			);
+		}
+
+		public function onRequireCssToLoad(){
+			return array();
+		}
+
+		public function onRequireJavascriptToLoad(&$event){
+			return array(
+				'http://platform.twitter.com/widgets.js'
+			);
+		}
 	 }

@@ -28,9 +28,25 @@
 		'search' => array(
 			'infinitas'
 		),
+
+		 /**
+		  * where twitter goes to auth the user
+		  */
 		'callback_url' => array(
 			'plugin' => 'twitter',
 			'controller' => 'connects',
 			'action' => 'callback'
+		),
+
+		 /**
+		  * defaults for tweet buttons used when nothing is passed.
+		  */
+		'tweetButton' => array(
+			'count' => 'horizontal',						// Count box position
+			'via' => 'dogmatic69',							// Screen name of the user to attribute the Tweet to
+			'related' => 'infinit8s: CakePHP powered CMS',	// Related accounts
+			'lang' => 'en',									// The language for the Tweet Button
+			'url' => null,									// URL of the page to share
+			'text' => null									// Default Tweet text
 		)
 	 );
