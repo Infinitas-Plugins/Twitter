@@ -33,21 +33,30 @@
 		  * where twitter goes to auth the user
 		  */
 		'callback_url' => array(
-			'plugin' => 'twitter',
+			'plugin'     => 'twitter',
 			'controller' => 'connects',
-			'action' => 'callback'
+			'action'     => 'callback'
 		),
 
 		 /**
 		  * defaults for tweet buttons used when nothing is passed.
 		  */
 		'tweetButton' => array(
-			'count' => 'horizontal',						// Count box position
-			'via' => 'dogmatic69',							// Screen name of the user to attribute the Tweet to
+			'count'   => 'horizontal',						// Count box position
+			'via'     => 'dogmatic69',						// Screen name of the user to attribute the Tweet to
 			'related' => 'infinit8s: CakePHP powered CMS',	// Related accounts
-			'lang' => 'en',									// The language for the Tweet Button
-			'url' => null,									// URL of the page to share
-			'text' => null									// Default Tweet text
+			'lang'    => 'en',								// The language for the Tweet Button
+			'url'     => null,								// URL of the page to share
+			'text'    => null								// Default Tweet text
+		),
+
+		 /**
+		  * see http://twitter.com/goodies/buttons
+		  */
+		'followMe' => array(
+			'image' => null,	// full url or relative cakephp url to the image to use or default images below
+			'color' => 1,		// 1 -> 3
+			'size'  => 1		// 1 -> 5  1 is biggest -> 5 is smallest
 		),
 
 		/**
@@ -57,13 +66,13 @@
 			// if you want
 		),
 		'onCmsAfterContentRender' => array(
-			'tweet'
+			'tweet' // show tweets
 		),
 
 		'onBlogBeforeContentRender' => array(
 			// if you want
 		),
 		'onBlogAfterContentRender' => array(
-			'tweet'
+			'tweet' // show tweets
 		)
 	);

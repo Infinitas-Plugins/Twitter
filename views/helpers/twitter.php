@@ -22,12 +22,39 @@
 
 	class TwitterHelper extends AppHelper{
 		public $helpers = array(
-			'Text', 'Html'
+			'Text', 'Html', 'Session'
 		);
 
 		public function  __construct() {
 			$this->__settings = Configure::read('Twitter');
 		}
+
+		private $__followImages = array(
+			1 => array(
+				1 => 'http://twitter-badges.s3.amazonaws.com/follow_me-a.png',
+				2 => 'http://twitter-badges.s3.amazonaws.com/follow_bird-a.png',
+				3 => 'http://twitter-badges.s3.amazonaws.com/twitter-a.png',
+				4 => 'http://twitter-badges.s3.amazonaws.com/t_logo-a.png',
+				5 => 'http://twitter-badges.s3.amazonaws.com/t_small-a.png',
+				6 => 'http://twitter-badges.s3.amazonaws.com/t_mini-a.png'
+			),
+			2 => array(
+				1 => 'http://twitter-badges.s3.amazonaws.com/follow_me-b.png',
+				2 => 'http://twitter-badges.s3.amazonaws.com/follow_bird-b.png',
+				3 => 'http://twitter-badges.s3.amazonaws.com/twitter-b.png',
+				4 => 'http://twitter-badges.s3.amazonaws.com/t_logo-b.png',
+				5 => 'http://twitter-badges.s3.amazonaws.com/t_small-b.png',
+				6 => 'http://twitter-badges.s3.amazonaws.com/t_mini-b.png'
+			),
+			3 => array(
+				1 => 'http://twitter-badges.s3.amazonaws.com/follow_me-c.png',
+				2 => 'http://twitter-badges.s3.amazonaws.com/follow_bird-c.png',
+				3 => 'http://twitter-badges.s3.amazonaws.com/twitter-c.png',
+				4 => 'http://twitter-badges.s3.amazonaws.com/t_logo-c.png',
+				5 => 'http://twitter-badges.s3.amazonaws.com/t_small-c.png',
+				6 => 'http://twitter-badges.s3.amazonaws.com/t_mini-c.png'
+			)
+		);
 
 		private $__avitar = array(
 			 'url' => 'http://api.twitter.com/1/users/profile_image/%s.json?size=%s',
@@ -79,7 +106,7 @@
 		/**
 		 * users icon
 		 */
-		public function avitar($size = 'medium', $user = null){
+		public function avitar($size = 'medium', $user = null, $returnPath = false){
 			if(!$user){
 				$user = $this->Session->read('Twitter.screen_name');
 			}
@@ -87,10 +114,15 @@
 			if(!in_array($size, array_keys($this->__avitar['sizes']))){
 				$size = 'medium';
 			}
+
+			$imageUrl = sprintf($this->__avitar['url'], $user, $this->__avitar['sizes'][$size]);
+			if($returnPath){
+				return $imageUrl;
+			}
 						
 			return $this->Html->link(
 				$this->Html->image(
-					sprintf($this->__avitar['url'], $user, $this->__avitar['sizes'][$size]),
+					$imageUrl,
 					array('alt' => $user)
 				),
 				sprintf($this->__profile, $user),
@@ -125,5 +157,52 @@
 					'class' => 'twitter-share-button'
 				)
 			);
+		}
+
+		/**
+		 * create a follow me button.
+		 *
+		 * if no options are passed the options from the config file will be used.
+		 * You can use any full url or a cakephp image url for the button. if you
+		 * pass 'avitar' as the image the avitar for the account that is setup will
+		 * show
+		 *
+		 * @param $image string url, relative path or 'avitar'
+		 * @param $options array
+		 *  + image like $image
+		 *  + size - for default images the size of the image
+		 *  + color - for default images the color of the image
+		 */
+		public function followMe($image = null, $options = array()){
+			$options = array_merge($this->__settings['followMe'], $options);
+
+			if(!$image){
+				$image = $this->__settings['followMe']['image'];
+				if(!$image){
+					$image = $this->__followImages[1][1]; // set a default
+					
+					$show =
+						isset($options['color']) &&
+						isset($options['size']) &&
+						isset($this->__followImages[$options['color']][$options['size']]);
+
+					if($show){
+						$image = $this->__followImages[$options['color']][$options['size']];
+					}
+				}
+			}
+
+			if($image == 'avitar'){
+				$image = $this->avitar(null, $this->__settings['username'], true);
+			}
+
+			return $this->Html->image(
+				$image,				
+				array(
+					'url' => sprintf('http://www.twitter.com/', $this->__settings['username']),
+					'alt' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username']),
+					'title' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username'])
+				)
+			);			
 		}
 	}
