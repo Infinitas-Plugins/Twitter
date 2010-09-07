@@ -113,7 +113,7 @@
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['content']['Post']['title']
+						'text' => $data['post']['Post']['title']
 					)
 				);
 			}
@@ -129,7 +129,7 @@
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['content']['Post']['title']
+						'text' => $data['post']['Post']['title']
 					)
 				);
 			}
