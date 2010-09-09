@@ -46,6 +46,7 @@
 		}
 
 		public function onSetupConfig(){
+			return Configure::load('twitter.config');
 		}
 
 		public function onRequireComponentsToLoad(){
