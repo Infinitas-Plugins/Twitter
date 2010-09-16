@@ -135,7 +135,7 @@
 				$this->redirect('/');
 			}
 
-			ClassRegistry::init('Management.User')->save(array('User' => array('User.id' => $id, 'User.twitter_id' => 0)));
+			ClassRegistry::init('Users.User')->save(array('User' => array('User.id' => $id, 'User.twitter_id' => 0)));
 		}
 
 		/**
@@ -143,7 +143,7 @@
 		 */
 		private function __linkOrCreateAccount($user = null){
 			$redirect = $this->Session->read('Twitter.redirect');
-			$User = ClassRegistry::init('Management.User');
+			$User = ClassRegistry::init('Users.User');
 			$id = $this->Session->read('Auth.User.id');
 			
 			$linked = $User->find(
