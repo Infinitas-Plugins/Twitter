@@ -70,9 +70,21 @@
 		/**
 		 * login button for twitter
 		 */
+		private $__loginImages = array(
+			'large-dark',
+			'small-dark',
+			'large-light',
+			'small-light'
+		);
+
 		public function login(){
+			$image = Configure::read('Twitter.login.button');
+			if(in_array($image, $this->__loginImages)){
+				$image = sprintf('/twitter/img/login-%s.png', $image);
+			}
+
 			return $this->Html->image(
-				'/twitter/img/login.png',
+				$image,
 				array(
 					'url' => array(
 						'plugin' => 'twitter',
@@ -88,17 +100,12 @@
 		 * logout button
 		 */
 		public function logout(){
-			return $this->Html->image(
-				'/twitter/img/login.png',
+			return $this->Html->link(
+				__('Logout', true),
 				array(
-					'url' => array(
-						'plugin' => 'twitter',
-						'controller' => 'connects',
-						'action' => 'logout'
-					),
-					array(
-						'alt' => 'Twitter logout'
-					)
+					'plugin' => 'twitter',
+					'controller' => 'connects',
+					'action' => 'logout'
 				)
 			);
 		}

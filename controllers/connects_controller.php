@@ -112,17 +112,16 @@
 		 * log them out the twitter profile by deleting the session and then
 		 * head to infinitas logout
 		 *
+		 * @param array $options options for the logout
+		 * redirect - where to send the user
+		 *
 		 * http://dev.twitter.com/doc/post/account/end_session
 		 */
 		public function logout(){
+			$_options['redirect'] = $this->referer();
+			$options = array_merge($_options, (array)Configure::read('Twitter.logout'));
 			$this->Session->delete('Twitter');
-			$this->redirect(
-				array(
-					'plugin' => 'management',
-					'controller' => 'users',
-					'action' => 'logout'
-				)
-			);
+			$this->redirect($options['redirect']);
 		}
 
 		/**

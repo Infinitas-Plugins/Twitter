@@ -135,4 +135,10 @@
 				);
 			}
 		}
+
+		public function onUserProfile(&$event){
+			return array(
+				'element' => 'profile'
+			);
+		}
 	 }
