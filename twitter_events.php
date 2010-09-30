@@ -71,6 +71,10 @@
 				'http://platform.twitter.com/widgets.js'
 			);
 		}
+
+		public function onSetupRoutes(){
+			Router::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
+		}
 		
 		/**
 		 * Called before cms content is echo'ed
