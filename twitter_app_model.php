@@ -31,7 +31,7 @@
 		 *
 		 * @var string
 		 */
-		public $useDbConfig = 'json';
+		public $useDbConfig = 'twitter';
 
 		/**
 		 * Behaviors to attach

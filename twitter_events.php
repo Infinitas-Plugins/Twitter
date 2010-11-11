@@ -75,6 +75,14 @@
 		public function onSetupRoutes(){
 			Router::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
 		}
+
+		public function onRequireDatabaseConfigs(&$event){
+			return array(
+				'twitter' => array(
+					'datasource' => 'Libs.Json'
+				)
+			);
+		}
 		
 		/**
 		 * Called before cms content is echo'ed
