@@ -66,7 +66,7 @@
 			return array();
 		}
 
-		public function onRequireJavascriptToLoad(&$event){
+		public function onRequireJavascriptToLoad($event){
 			return array(
 				'http://platform.twitter.com/widgets.js'
 			);
@@ -76,7 +76,7 @@
 			Router::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
 		}
 
-		public function onRequireDatabaseConfigs(&$event){
+		public function onRequireDatabaseConfigs($event){
 			return array(
 				'twitter' => array(
 					'datasource' => 'Libs.Json'
@@ -87,7 +87,7 @@
 		/**
 		 * Called before cms content is echo'ed
 		 */
-		public function onCmsBeforeContentRender(&$event, $data) {
+		public function onCmsBeforeContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onCmsBeforeContentRender']) && in_array('tweet', $config['onCmsBeforeContentRender'])) {
 				$link = $data['_this']->Event->trigger('cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
@@ -103,7 +103,7 @@
 		/**
 		 * Called after cms content is echo'ed
 		 */
-		public function onCmsAfterContentRender(&$event, $data) {
+		public function onCmsAfterContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onCmsAfterContentRender']) && in_array('tweet', $config['onCmsAfterContentRender'])) {
 				$link = $data['_this']->Event->trigger('cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
@@ -119,7 +119,7 @@
 		/**
 		 * Called before blog post is echo'ed
 		 */
-		public function onBlogBeforeContentRender(&$event, $data) {
+		public function onBlogBeforeContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogBeforeContentRender']) && in_array('tweet', $config['onBlogBeforeContentRender'])) {
 				$link = $data['_this']->Event->trigger('blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
@@ -135,7 +135,7 @@
 		/**
 		 * Called after blog post is echo'ed
 		 */
-		public function onBlogAfterContentRender(&$event, $data) {
+		public function onBlogAfterContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogAfterContentRender']) && in_array('tweet', $config['onBlogAfterContentRender'])) {
 				$link = $data['_this']->Event->trigger('blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
@@ -148,7 +148,7 @@
 			}
 		}
 
-		public function onUserProfile(&$event){
+		public function onUserProfile($event){
 			return array(
 				'element' => 'profile'
 			);
