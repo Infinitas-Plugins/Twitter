@@ -203,12 +203,18 @@
 				$image = $this->avitar(null, $this->__settings['username'], true);
 			}
 
-			return $this->Html->image(
-				$image,				
+			return $this->Html->link(
+				$this->Html->image(
+					$image,
+					array(
+						'alt' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username']),
+					)
+				),
+				sprintf('http://www.twitter.com/%s', $this->__settings['username']),
 				array(
-					'url' => sprintf('http://www.twitter.com/', $this->__settings['username']),
-					'alt' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username']),
-					'title' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username'])
+					'title' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username']),
+					'target' => '_blank',
+					'escape' => false
 				)
 			);			
 		}
