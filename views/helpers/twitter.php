@@ -25,10 +25,6 @@
 			'Text', 'Html', 'Session'
 		);
 
-		public function  __construct() {
-			$this->__settings = Configure::read('Twitter');
-		}
-
 		private $__followImages = array(
 			1 => array(
 				1 => 'http://twitter-badges.s3.amazonaws.com/follow_me-a.png',
@@ -76,6 +72,10 @@
 			'large-light',
 			'small-light'
 		);
+
+		public function  __construct() {
+			$this->__settings = Configure::read('Twitter');
+		}
 
 		public function login(){
 			$image = Configure::read('Twitter.login.button');

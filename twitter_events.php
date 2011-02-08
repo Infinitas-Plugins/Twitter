@@ -25,7 +25,7 @@
 			$config = Configure::read('Twitter');
 
 			if(empty($config)) {
-				Configure::load('Twitter.twitter');
+				Configure::load('Twitter.config');
 				$config = Configure::read('Twitter');
 			}
 
