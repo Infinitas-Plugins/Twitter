@@ -57,8 +57,12 @@
 		 */
 		public function connect() {
 			if($this->Session->read('Twitter')){
-				$this->Session->setFlash(__('Your twitter account is already linked', true));
-				$this->redirect();
+				$this->notice(
+					__('Your twitter account is already linked', true),
+					array(
+						'redirect' => true
+					)
+				);
 			}
 			
 			$this->Session->write('Twitter.referer', $this->referer());
@@ -82,8 +86,12 @@
 		 */
 		public function callback() {
 			if(!$this->Session->read('Twitter.referer')){
-				$this->Session->setFlash(__('Something went wrong, please try again', true));
-				$this->redirect('/');
+				$this->notice(
+					__('Something went wrong, please try again', true),
+					array(
+						'redirect' => '/'
+					)
+				);
 			}
 
 			$connection = $this->Connect->find(
@@ -100,8 +108,12 @@
 			$connection = $this->Connect->formatQueryString($connection);
 
 			if(!isset($connection['Connect']) || empty($connection['Connect'])){
-				$this->Session->setFlash(__('There was an error authenticating you, please try agian', true));
-				$this->redirect('/');
+				$this->notice(
+					__('There was an error authenticating you, please try agian', true),
+					array(
+						'redirect' => '/'
+					)
+				);
 			}
 			
 			$this->Session->write('Twitter', $connection['Connect']);
@@ -130,8 +142,12 @@
 		public function unlink(){
 			$id = $this->Session->read('Auth.User.id');
 			if(!$id){
-				$this->Session->setFlash(__('You are not allowed to do that', true));
-				$this->redirect('/');
+				$this->notice(
+					__('You are not allowed to do that', true),
+					array(
+						'redirect' => true
+					)
+				);
 			}
 
 			ClassRegistry::init('Users.User')->save(array('User' => array('User.id' => $id, 'User.twitter_id' => 0)));
