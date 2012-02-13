@@ -101,7 +101,7 @@
 		 */
 		public function logout(){
 			return $this->Html->link(
-				__('Logout', true),
+				__('Logout'),
 				array(
 					'plugin' => 'twitter',
 					'controller' => 'connects',
@@ -158,7 +158,7 @@
 			// if not url get current url from the infinitas shortener
 			
 			return $this->Html->link(
-				__('Tweet', true),
+				__('Tweet'),
 				sprintf('http://twitter.com/share?%s', http_build_query(array_filter($options))),
 				array(
 					'class' => 'twitter-share-button'
@@ -207,12 +207,12 @@
 				$this->Html->image(
 					$image,
 					array(
-						'alt' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username']),
+						'alt' => sprintf(__('Follow %s on Twitter'), $this->__settings['username']),
 					)
 				),
 				sprintf('http://www.twitter.com/%s', $this->__settings['username']),
 				array(
-					'title' => sprintf(__('Follow %s on Twitter', true), $this->__settings['username']),
+					'title' => sprintf(__('Follow %s on Twitter'), $this->__settings['username']),
 					'target' => '_blank',
 					'escape' => false
 				)

@@ -22,13 +22,6 @@
 
 	class ConnectsController extends TwitterAppController {
 		/**
-		 * class name
-		 *
-		 * @var string
-		 */
-		public $name = 'Connects';
-
-		/**
 		 * use the model for conecting and authenticating
 		 */
 		public $uses = array(
@@ -58,7 +51,7 @@
 		public function connect() {
 			if($this->Session->read('Twitter')){
 				$this->notice(
-					__('Your twitter account is already linked', true),
+					__('Your twitter account is already linked'),
 					array(
 						'redirect' => true
 					)
@@ -87,7 +80,7 @@
 		public function callback() {
 			if(!$this->Session->read('Twitter.referer')){
 				$this->notice(
-					__('Something went wrong, please try again', true),
+					__('Something went wrong, please try again'),
 					array(
 						'redirect' => '/'
 					)
@@ -109,7 +102,7 @@
 
 			if(!isset($connection['Connect']) || empty($connection['Connect'])){
 				$this->notice(
-					__('There was an error authenticating you, please try agian', true),
+					__('There was an error authenticating you, please try agian'),
 					array(
 						'redirect' => '/'
 					)
@@ -143,7 +136,7 @@
 			$id = $this->Session->read('Auth.User.id');
 			if(!$id){
 				$this->notice(
-					__('You are not allowed to do that', true),
+					__('You are not allowed to do that'),
 					array(
 						'redirect' => true
 					)

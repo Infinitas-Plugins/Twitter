@@ -1,6 +1,6 @@
 <?php
-	/* 
-	 * AppController for twitter
+	/**
+	 * The twitter app model
 	 * 
 	 * Copyright (c) 2010 Carl Sutton ( dogmatic69 )
 	 * 
@@ -8,7 +8,7 @@
 	 * @copyright Copyright (c) 2010 Carl Sutton ( dogmatic69 )
 	 * @link http://www.infinitas-cms.org
 	 * @package twitter
-	 * @subpackage twitter.app_controller
+	 * @subpackage twitter.app_model
 	 * @license http://www.opensource.org/licenses/mit-license.php The MIT License
 	 * @since 0.1
 	 * 
@@ -18,12 +18,25 @@
 	 * Redistributions of files must retain the above copyright notice.
 	 */
 
-	 class TwitterAppController extends AppController{
-		 public $name = 'TwitterAppController';
+	 class TwitterAppModel extends Model {
+		/**
+		 * database configuration to use
+		 *
+		 * @var string
+		 */
+		public $useDbConfig = 'twitter';
 
-		 public function beforeFilter(){
-			 parent::beforeFilter();
+		/**
+		 * Behaviors to attach
+		 *
+		 * @var mixed
+		 */
+		public $actsAs = false;
 
-			 Configure::load('twitter.config');
-		 }
+		/**
+		 * database table to use
+		 *
+		 * @var string
+		 */
+		public $useTable = false;
 	 }

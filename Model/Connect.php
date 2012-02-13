@@ -20,13 +20,7 @@
 	 * Redistributions of files must retain the above copyright notice.
 	 */
 
-	class Connect extends TwitterAppModel{
-		 /**
-		  *
-		  * @var string
-		  */
-		public $name = 'Connect';
-
+	class Connect extends TwitterAppModel {
 		public $schema = array(
 			'title' => array(
 				'type' => 'string',

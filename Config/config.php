@@ -1,0 +1,4 @@
+<?php
+	$config['Twitter'] = array(
+
+	);
