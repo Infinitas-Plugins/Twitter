@@ -23,5 +23,6 @@
 			 parent::beforeFilter();
 
 			 Configure::load('twitter.config');
+			return true;
 		 }
 	 }

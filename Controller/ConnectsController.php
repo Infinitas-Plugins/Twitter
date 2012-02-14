@@ -43,6 +43,7 @@
 		public function beforeFilter(){
 			parent::beforeFilter();
 			$this->Connect->enabled = null;
+			return true;
 		}
 
 		/**
