@@ -93,8 +93,8 @@
 				array(
 					'conditions' => array(
 						'Connect.type' => 'access',
-						'Connect.oauth_token' => $this->params['url']['oauth_token'],
-						'Connect.oauth_verifier' => $this->params['url']['oauth_verifier']
+						'Connect.oauth_token' => $this->request->params['url']['oauth_token'],
+						'Connect.oauth_verifier' => $this->request->params['url']['oauth_verifier']
 					)
 				)
 			);
