@@ -134,7 +134,7 @@
 		 * when someone wants to remove their account
 		 */
 		public function unlink(){
-			$id = $this->Session->read('Auth.User.id');
+			$id = $this->Auth->user('id');
 			if(!$id){
 				$this->notice(
 					__('You are not allowed to do that'),
@@ -153,7 +153,7 @@
 		private function __linkOrCreateAccount($user = null){
 			$redirect = $this->Session->read('Twitter.redirect');
 			$User = ClassRegistry::init('Users.User');
-			$id = $this->Session->read('Auth.User.id');
+			$id = $this->Auth->user('id');
 			
 			$linked = $User->find(
 				'first',
