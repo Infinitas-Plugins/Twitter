@@ -122,7 +122,7 @@
 		public function onBlogBeforeContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogBeforeContentRender']) && in_array('tweet', $config['onBlogBeforeContentRender'])) {
-				$link = $data['_this']->Event->trigger('blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
+				$link = $data['_this']->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
@@ -138,7 +138,7 @@
 		public function onBlogAfterContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogAfterContentRender']) && in_array('tweet', $config['onBlogAfterContentRender'])) {
-				$link = $data['_this']->Event->trigger('blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
+				$link = $data['_this']->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
