@@ -20,7 +20,7 @@
 	 * Redistributions of files must retain the above copyright notice.
 	 */
 
-	class TwitterHelper extends AppHelper{
+	class TwitterHelper extends AppHelper {
 		public $helpers = array(
 			'Text', 'Html', 'Session'
 		);
@@ -73,7 +73,8 @@
 			'small-light'
 		);
 
-		public function  __construct() {
+		public function  __construct(View $View) {
+			parent::__construct($View);
 			$this->__settings = Configure::read('Twitter');
 		}
 

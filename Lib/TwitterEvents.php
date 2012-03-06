@@ -45,7 +45,7 @@
 			);
 		}
 
-		public function onSetupConfig(){
+		public function onSetupConfig() {
 			return Configure::load('Twitter.config');
 		}
 
@@ -90,11 +90,11 @@
 		public function onCmsBeforeContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onCmsBeforeContentRender']) && in_array('tweet', $config['onCmsBeforeContentRender'])) {
-				$link = $data['_this']->Event->trigger('cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
+				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['content']['Content']['title']
+						'text' => $data['content']['CmsContent']['title']
 					)
 				);
 			}
@@ -106,11 +106,11 @@
 		public function onCmsAfterContentRender($event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onCmsAfterContentRender']) && in_array('tweet', $config['onCmsAfterContentRender'])) {
-				$link = $data['_this']->Event->trigger('cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
+				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['content']['Content']['title']
+						'text' => $data['content']['CmsContent']['title']
 					)
 				);
 			}
@@ -126,7 +126,7 @@
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['post']['Post']['title']
+						'text' => $data['post']['BlogPost']['title']
 					)
 				);
 			}
@@ -142,7 +142,7 @@
 				return $data['_this']->Twitter->tweetButton(
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['post']['Post']['title']
+						'text' => $data['post']['BlogPost']['title']
 					)
 				);
 			}
