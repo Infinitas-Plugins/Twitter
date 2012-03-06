@@ -1,6 +1,6 @@
 <?php
 $map = array(
 	1 => array(
-		'000008_twitter' => 'R4e2df29a456443c981b13f406318cd70'),
+		'000009_Twitter' => 'R4f563fefece0409a83954d916318cd70'),
 );
 ?>
