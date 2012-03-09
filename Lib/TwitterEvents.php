@@ -20,19 +20,18 @@
 	 * Redistributions of files must retain the above copyright notice.
 	 */
 
-	 class TwitterEvents extends AppEvents{
+	 class TwitterEvents extends AppEvents {
 		private function __getConfig() {
 			$config = Configure::read('Twitter');
 
 			if(empty($config)) {
-				Configure::load('Twitter.config');
-				$config = Configure::read('Twitter');
+				return false;
 			}
 
 			return $config;
 		}
 
-		public function onSetupCache(){
+		public function onSetupCache() {
 			return array(
 				'name' => 'twitter',
 				'config' => array(
@@ -45,38 +44,33 @@
 			);
 		}
 
-		public function onSetupConfig() {
-			return Configure::load('Twitter.config');
-		}
-
-		public function onRequireComponentsToLoad(){
-			Configure::load('Twitter.config');
+		public function onRequireComponentsToLoad() {
 			return array(
 				//'Twitter.Twitter'
 			);
 		}
 
-		public function onRequireHelpersToLoad(){
+		public function onRequireHelpersToLoad() {
 			return array(
 				'Twitter.Twitter'
 			);
 		}
 
-		public function onRequireCssToLoad(){
+		public function onRequireCssToLoad() {
 			return array();
 		}
 
-		public function onRequireJavascriptToLoad($event){
+		public function onRequireJavascriptToLoad($event) {
 			return array(
 				'http://platform.twitter.com/widgets.js'
 			);
 		}
 
-		public function onSetupRoutes(){
+		public function onSetupRoutes() {
 			Router::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
 		}
 
-		public function onRequireDatabaseConfigs($event){
+		public function onRequireDatabaseConfigs($event) {
 			return array(
 				'twitter' => array(
 					'datasource' => 'Libs.JsonSource'
@@ -148,7 +142,7 @@
 			}
 		}
 
-		public function onUserProfile($event){
+		public function onUserProfile($event) {
 			return array(
 				'element' => 'profile'
 			);
