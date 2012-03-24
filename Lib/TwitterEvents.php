@@ -67,7 +67,7 @@
 		}
 
 		public function onSetupRoutes() {
-			Router::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
+			InfinitasRouter::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
 		}
 
 		public function onRequireDatabaseConfigs($event) {
