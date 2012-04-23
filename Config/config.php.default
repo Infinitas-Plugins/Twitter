@@ -57,22 +57,5 @@
 			'image' => null,	// full url or relative cakephp url to the image to use or default images below
 			'color' => 1,		// 1 -> 3
 			'size'  => 1		// 1 -> 5  1 is biggest -> 5 is smallest
-		),
-
-		/**
-		 * Events
-		 */
-		'onCmsBeforeContentRender' => array(
-			// if you want
-		),
-		'onCmsAfterContentRender' => array(
-			'tweet' // show tweets
-		),
-
-		'onBlogBeforeContentRender' => array(
-			// if you want
-		),
-		'onBlogAfterContentRender' => array(
-			'tweet' // show tweets
 		)
 	);

@@ -80,9 +80,10 @@
 
 		/**
 		 * Called before cms content is echo'ed
+		 * 
+		 * @deprecated
 		 */
 		public function onCmsBeforeContentRender($event, $data) {
-			$config = $this->__getConfig();
 			if(isset($config['onCmsBeforeContentRender']) && in_array('tweet', $config['onCmsBeforeContentRender'])) {
 				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
 				return $data['_this']->Twitter->tweetButton(
@@ -96,6 +97,8 @@
 
 		/**
 		 * Called after cms content is echo'ed
+		 * 
+		 * @deprecated
 		 */
 		public function onCmsAfterContentRender($event, $data) {
 			$config = $this->__getConfig();
@@ -112,6 +115,8 @@
 
 		/**
 		 * Called before blog post is echo'ed
+		 * 
+		 * @deprecated
 		 */
 		public function onBlogBeforeContentRender($event, $data) {
 			$config = $this->__getConfig();
@@ -128,6 +133,8 @@
 
 		/**
 		 * Called after blog post is echo'ed
+		 * 
+		 * @deprecated
 		 */
 		public function onBlogAfterContentRender($event, $data) {
 			$config = $this->__getConfig();
@@ -137,6 +144,42 @@
 					array(
 						'url' => Router::url(current($link['slugUrl']), true),
 						'text' => $data['post']['BlogPost']['title']
+					)
+				);
+			}
+		}
+		
+		/**
+		 * Called before content is rendered
+		 * 
+		 * @deprecated
+		 */
+		public function onBeforeContentRender($event, $data) {
+			$config = Configure::read(sprintf('%s.beforeContentRender', $event->Handler->plugin));
+			if(is_array($config) && in_array('tweet', $config)) {
+				$record = current(current($data));
+				if(empty($record['url'])) {
+					$record['url'] = $event->Handler->trigger(
+						sprintf('%s.slugUrl', $event->Handler->plugin), 
+						array('type' => current(array_keys($data)), 'data' => current($data))
+					);
+					
+					$record['url'] = InfinitasRouter::url(current($eventData['url']['slugUrl']));
+				}
+				
+				$title = !empty($record['title']) ? $record['title'] : null;
+				if((empty($title) && !empty($record['name']))) {
+					$title = $record['name'];
+				}
+				if(empty($title)) {
+					$title = $record[ClassRegistry::init(implode('.', current($event->Handler->request->params['models'])))->displayField];
+				}
+				
+				$short = $event->Handler->trigger('ShortUrls.getShortUrl', array('url' => $record['url']));
+				return $event->Handler->_View->Twitter->tweetButton(
+					array(
+						'url' => InfinitasRouter::url(current($short['getShortUrl'])),
+						'text' => $title
 					)
 				);
 			}
