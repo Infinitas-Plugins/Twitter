@@ -19,7 +19,7 @@
 	 */
 
 	 class TwitterAppController extends AppController {
-		 public function beforeFilter(){
+		 public function beforeFilter() {
 			 parent::beforeFilter();
 
 			 Configure::load('twitter.config');

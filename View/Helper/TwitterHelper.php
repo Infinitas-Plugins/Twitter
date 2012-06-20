@@ -78,9 +78,9 @@
 			$this->__settings = Configure::read('Twitter');
 		}
 
-		public function login(){
+		public function login() {
 			$image = Configure::read('Twitter.login.button');
-			if(in_array($image, $this->__loginImages)){
+			if(in_array($image, $this->__loginImages)) {
 				$image = sprintf('/twitter/img/login-%s.png', $image);
 			}
 
@@ -100,7 +100,7 @@
 		/**
 		 * logout button
 		 */
-		public function logout(){
+		public function logout() {
 			return $this->Html->link(
 				__('Logout'),
 				array(
@@ -114,17 +114,17 @@
 		/**
 		 * users icon
 		 */
-		public function avitar($size = 'medium', $user = null, $returnPath = false){
-			if(!$user){
+		public function avitar($size = 'medium', $user = null, $returnPath = false) {
+			if(!$user) {
 				$user = $this->Session->read('Twitter.screen_name');
 			}
 
-			if(!in_array($size, array_keys($this->__avitar['sizes']))){
+			if(!in_array($size, array_keys($this->__avitar['sizes']))) {
 				$size = 'medium';
 			}
 
 			$imageUrl = sprintf($this->__avitar['url'], $user, $this->__avitar['sizes'][$size]);
-			if($returnPath){
+			if($returnPath) {
 				return $imageUrl;
 			}
 						
@@ -149,10 +149,10 @@
 		 *
 		 * uses the defalts in config if you dont pass anything.
 		 */
-		public function tweetButton($options = array()){
+		public function tweetButton($options = array()) {
 			$options = array_merge($this->__settings['tweetButton'], (array)$options);
 
-			if(!$options['text']){
+			if(!$options['text']) {
 				$options['text'] = $this->Text->truncate(strip_tags(Configure::read('Website.description')), 100);
 			}
 
@@ -181,12 +181,12 @@
 		 *  + size - for default images the size of the image
 		 *  + color - for default images the color of the image
 		 */
-		public function followMe($image = null, $options = array()){
+		public function followMe($image = null, $options = array()) {
 			$options = array_merge($this->__settings['followMe'], $options);
 
-			if(!$image){
+			if(!$image) {
 				$image = $this->__settings['followMe']['image'];
-				if(!$image){
+				if(!$image) {
 					$image = $this->__followImages[1][1]; // set a default
 					
 					$show =
@@ -194,13 +194,13 @@
 						isset($options['size']) &&
 						isset($this->__followImages[$options['color']][$options['size']]);
 
-					if($show){
+					if($show) {
 						$image = $this->__followImages[$options['color']][$options['size']];
 					}
 				}
 			}
 
-			if($image == 'avitar'){
+			if($image == 'avitar') {
 				$image = $this->avitar(null, $this->__settings['username'], true);
 			}
 

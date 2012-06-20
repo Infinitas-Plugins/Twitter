@@ -40,7 +40,7 @@
 		/**
 		 * need to figure out what this is about.
 		 */
-		public function beforeFilter(){
+		public function beforeFilter() {
 			parent::beforeFilter();
 			$this->Connect->enabled = null;
 			return true;
@@ -50,7 +50,7 @@
 		 * connect to twitter
 		 */
 		public function connect() {
-			if($this->Session->read('Twitter')){
+			if($this->Session->read('Twitter')) {
 				$this->notice(
 					__('Your twitter account is already linked'),
 					array(
@@ -79,7 +79,7 @@
 		 * callback for twitter to give the app a key
 		 */
 		public function callback() {
-			if(!$this->Session->read('Twitter.referer')){
+			if(!$this->Session->read('Twitter.referer')) {
 				$this->notice(
 					__('Something went wrong, please try again'),
 					array(
@@ -101,7 +101,7 @@
 
 			$connection = $this->Connect->formatQueryString($connection);
 
-			if(!isset($connection['Connect']) || empty($connection['Connect'])){
+			if(!isset($connection['Connect']) || empty($connection['Connect'])) {
 				$this->notice(
 					__('There was an error authenticating you, please try agian'),
 					array(
@@ -123,7 +123,7 @@
 		 *
 		 * http://dev.twitter.com/doc/post/account/end_session
 		 */
-		public function logout(){
+		public function logout() {
 			$_options['redirect'] = $this->referer();
 			$options = array_merge($_options, (array)Configure::read('Twitter.logout'));
 			$this->Session->delete('Twitter');
@@ -133,9 +133,9 @@
 		/**
 		 * when someone wants to remove their account
 		 */
-		public function unlink(){
+		public function unlink() {
 			$id = $this->Auth->user('id');
-			if(!$id){
+			if(!$id) {
 				$this->notice(
 					__('You are not allowed to do that'),
 					array(
@@ -150,7 +150,7 @@
 		/**
 		 * figure out what someone needs when they log in.
 		 */
-		private function __linkOrCreateAccount($user = null){
+		private function __linkOrCreateAccount($user = null) {
 			$redirect = $this->Session->read('Twitter.redirect');
 			$User = ClassRegistry::init('Users.User');
 			$id = $this->Auth->user('id');
@@ -167,7 +167,7 @@
 			var_dump(!$linked && $id);
 
 			// not linked and logged in
-			if(!$linked && $id){
+			if(!$linked && $id) {
 				$User->id = $id;
 				$User->saveField('twitter_id', $user['user_id']);
 				
@@ -176,7 +176,7 @@
 			}
 
 			// linked but not logged in
-			else if(!empty($linked) && !$id){
+			else if(!empty($linked) && !$id) {
 				$this->Session->write('Auth.User', $existing['User']);
 				$this->redirect($redirect);
 			}

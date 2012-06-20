@@ -22,17 +22,17 @@
 ?>
 <h3>Twitter</h3>
 <?php
-	if($this->Session->read('Twitter') && $user['User']['twitter_id']){
+	if($this->Session->read('Twitter') && $user['User']['twitter_id']) {
 		echo sprintf('<p>%s</p>', __('Your are currently logged-in with your Twitter account, If you would like to log out click the button below'));
 		echo $this->Twitter->logout();
 	}
 
-	else if(!$this->Session->read('Twitter')&& $user['User']['twitter_id']){
+	else if(!$this->Session->read('Twitter')&& $user['User']['twitter_id']) {
 		echo sprintf('<p>%s</p>', __('Your Twitter account is currently linked, but you are not logged-in to Twitter, click below to login now.'));
 		echo $this->Twitter->login();
 	}
 	
-	else if($user['User']['twitter_id'] == 0){
+	else if($user['User']['twitter_id'] == 0) {
 		echo sprintf('<p>%s</p>', __('Your Twitter account is not currently linked, you can do so by clicking the button below.'));
 		echo $this->Twitter->login();
 	}

@@ -101,7 +101,7 @@
 			Configure::load('twitter.config');
 			$config = Configure::read('Twitter');
 
-			if(isset($this->request['auth']['oauth_callback'])){
+			if(isset($this->request['auth']['oauth_callback'])) {
 				$this->request['auth']['oauth_callback'] = Router::url($config['callback_url'], true);
 			}
 
@@ -112,13 +112,13 @@
 		/**
 		 * set the query up as per the find conditions.
 		 */
-		public function beforeFind($queryData){
+		public function beforeFind($queryData) {
 			$this->request['uri']['path'] = $this->requestTypes['request'];
-			if(isset($this->requestTypes[$queryData['conditions']['Connect.type']])){
+			if(isset($this->requestTypes[$queryData['conditions']['Connect.type']])) {
 				$this->request['uri']['path'] = $this->requestTypes[$queryData['conditions']['Connect.type']];
 			}
 
-			if(isset($queryData['conditions']['Connect.oauth_token']) && isset($queryData['conditions']['Connect.oauth_verifier'])){
+			if(isset($queryData['conditions']['Connect.oauth_token']) && isset($queryData['conditions']['Connect.oauth_verifier'])) {
 				$this->request['auth']['oauth_token'] = $queryData['conditions']['Connect.oauth_token'];
 				$this->request['auth']['oauth_verifier'] = $queryData['conditions']['Connect.oauth_verifier'];
 			}
@@ -130,9 +130,9 @@
 		/**
 		 * does not want to work ffs
 		 */
-		public function afterFind($results, $primary){
+		public function afterFind($results, $primary) {
 			return $results;
-			if(is_string($results[0]['Connect'])){
+			if(is_string($results[0]['Connect'])) {
 				return $this->formatQueryString($results[0]['Connect']);
 			}
 		}
@@ -140,7 +140,7 @@
 		/**
 		 * does not want to work in afterSave()
 		 */
-		public function formatQueryString($results){
+		public function formatQueryString($results) {
 			$results = current($results);
 			parse_str($results, $results);
 			$return[$this->name] = $results;
