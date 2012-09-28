@@ -1,11 +1,11 @@
 <?php
-	/* 
+	/*
 	 * Short Description / title.
-	 * 
+	 *
 	 * Overview of what the file does. About a paragraph or two
-	 * 
+	 *
 	 * Copyright (c) 2010 Carl Sutton ( dogmatic69 )
-	 * 
+	 *
 	 * @filesource
 	 * @copyright Copyright (c) 2010 Carl Sutton ( dogmatic69 )
 	 * @link http://www.infinitas-cms.org
@@ -13,9 +13,9 @@
 	 * @subpackage {see_below}
 	 * @license http://www.opensource.org/licenses/mit-license.php The MIT License
 	 * @since {check_current_milestone_in_lighthouse}
-	 * 
+	 *
 	 * @author {your_name}
-	 * 
+	 *
 	 * Licensed under The MIT License
 	 * Redistributions of files must retain the above copyright notice.
 	 */
@@ -98,11 +98,10 @@
 		public function __construct($id = false, $table = null, $ds = null) {
 			parent::__construct($id, $table, $ds);
 
-			Configure::load('twitter.config');
 			$config = Configure::read('Twitter');
 
 			if(isset($this->request['auth']['oauth_callback'])) {
-				$this->request['auth']['oauth_callback'] = Router::url($config['callback_url'], true);
+				$this->request['auth']['oauth_callback'] = InfinitasRouter::url($config['callback_url']);
 			}
 
 			$this->request['auth']['oauth_consumer_key'] = $config['consumer_key'];
@@ -122,7 +121,7 @@
 				$this->request['auth']['oauth_token'] = $queryData['conditions']['Connect.oauth_token'];
 				$this->request['auth']['oauth_verifier'] = $queryData['conditions']['Connect.oauth_verifier'];
 			}
-			
+
 			$queryData['conditions'] = 'raw';
 			return $queryData;
 		}
