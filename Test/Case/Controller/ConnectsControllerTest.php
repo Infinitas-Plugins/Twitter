@@ -13,7 +13,7 @@ class ConnectsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.twitter.connect'
+		//'plugin.twitter.connect'
 	);
 
 /**
