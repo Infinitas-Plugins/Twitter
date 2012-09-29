@@ -13,7 +13,7 @@ class ConnectTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.twitter.connect'
+		//'plugin.twitter.connect'
 	);
 
 /**
