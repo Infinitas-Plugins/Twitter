@@ -31,7 +31,7 @@
 			return $config;
 		}
 
-		public function onSetupCache() {
+		public function onSetupCache(Event $Event) {
 			return array(
 				'name' => 'twitter',
 				'config' => array(
@@ -44,33 +44,27 @@
 			);
 		}
 
-		public function onRequireComponentsToLoad() {
-			return array(
-				//'Twitter.Twitter'
-			);
-		}
-
-		public function onRequireHelpersToLoad() {
+		public function onRequireHelpersToLoad(Event $Event) {
 			return array(
 				'Twitter.Twitter'
 			);
 		}
 
-		public function onRequireCssToLoad() {
-			return array();
-		}
-
-		public function onRequireJavascriptToLoad($event) {
+		public function onRequireJavascriptToLoad(Event $Event) {
 			return array(
 				'http://platform.twitter.com/widgets.js'
 			);
 		}
 
-		public function onSetupRoutes() {
-			InfinitasRouter::connect('/twitter-callback', array('plugin' => 'twitter', 'controller' => 'connects', 'action' => 'callback'));
+		public function onSetupRoutes(Event $Event) {
+			InfinitasRouter::connect('/twitter-callback', array(
+				'plugin' => 'twitter',
+				'controller' => 'connects',
+				'action' => 'callback'
+			));
 		}
 
-		public function onRequireDatabaseConfigs($event) {
+		public function onRequireDatabaseConfigs(Event $Event) {
 			return array(
 				'twitter' => array(
 					'datasource' => 'Libs.JsonSource'
@@ -80,10 +74,10 @@
 
 		/**
 		 * Called before cms content is echo'ed
-		 * 
+		 *
 		 * @deprecated
 		 */
-		public function onCmsBeforeContentRender($event, $data) {
+		public function onCmsBeforeContentRender(Event $Event, $data) {
 			if(isset($config['onCmsBeforeContentRender']) && in_array('tweet', $config['onCmsBeforeContentRender'])) {
 				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
 				return $data['_this']->Twitter->tweetButton(
@@ -97,10 +91,10 @@
 
 		/**
 		 * Called after cms content is echo'ed
-		 * 
+		 *
 		 * @deprecated
 		 */
-		public function onCmsAfterContentRender($event, $data) {
+		public function onCmsAfterContentRender(Event $Event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onCmsAfterContentRender']) && in_array('tweet', $config['onCmsAfterContentRender'])) {
 				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
@@ -115,10 +109,10 @@
 
 		/**
 		 * Called before blog post is echo'ed
-		 * 
+		 *
 		 * @deprecated
 		 */
-		public function onBlogBeforeContentRender($event, $data) {
+		public function onBlogBeforeContentRender(Event $Event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogBeforeContentRender']) && in_array('tweet', $config['onBlogBeforeContentRender'])) {
 				$link = $data['_this']->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
@@ -133,10 +127,10 @@
 
 		/**
 		 * Called after blog post is echo'ed
-		 * 
+		 *
 		 * @deprecated
 		 */
-		public function onBlogAfterContentRender($event, $data) {
+		public function onBlogAfterContentRender(Event $Event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogAfterContentRender']) && in_array('tweet', $config['onBlogAfterContentRender'])) {
 				$link = $data['_this']->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
@@ -148,35 +142,35 @@
 				);
 			}
 		}
-		
+
 		/**
 		 * Called before content is rendered
-		 * 
+		 *
 		 * @deprecated
 		 */
-		public function onBeforeContentRender($event, $data) {
-			$config = Configure::read(sprintf('%s.beforeContentRender', $event->Handler->plugin));
+		public function onBeforeContentRender(Event $Event, $data) {
+			$config = Configure::read(sprintf('%s.beforeContentRender', $Event->Handler->plugin));
 			if(is_array($config) && in_array('tweet', $config)) {
 				$record = current(current($data));
 				if(empty($record['url'])) {
-					$record['url'] = $event->Handler->trigger(
-						sprintf('%s.slugUrl', $event->Handler->plugin), 
+					$record['url'] = $Event->Handler->trigger(
+						sprintf('%s.slugUrl', $Event->Handler->plugin),
 						array('type' => current(array_keys($data)), 'data' => current($data))
 					);
-					
+
 					$record['url'] = InfinitasRouter::url(current($eventData['url']['slugUrl']));
 				}
-				
+
 				$title = !empty($record['title']) ? $record['title'] : null;
 				if((empty($title) && !empty($record['name']))) {
 					$title = $record['name'];
 				}
 				if(empty($title)) {
-					$title = $record[ClassRegistry::init(implode('.', current($event->Handler->request->params['models'])))->displayField];
+					$title = $record[ClassRegistry::init(implode('.', current($Event->Handler->request->params['models'])))->displayField];
 				}
-				
-				$short = $event->Handler->trigger('ShortUrls.getShortUrl', array('url' => $record['url']));
-				return $event->Handler->_View->Twitter->tweetButton(
+
+				$short = $Event->Handler->trigger('ShortUrls.getShortUrl', array('url' => $record['url']));
+				return $Event->Handler->_View->Twitter->tweetButton(
 					array(
 						'url' => InfinitasRouter::url(current($short['getShortUrl'])),
 						'text' => $title
@@ -185,9 +179,9 @@
 			}
 		}
 
-		public function onUserProfile($event) {
+		public function onUserProfile(Event $Event) {
 			return array(
 				'element' => 'profile'
 			);
 		}
-	 }
+	}

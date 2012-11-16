@@ -129,7 +129,7 @@
 		/**
 		 * does not want to work ffs
 		 */
-		public function afterFind($results, $primary) {
+		public function afterFind($results, $primary = false) {
 			return $results;
 			if(is_string($results[0]['Connect'])) {
 				return $this->formatQueryString($results[0]['Connect']);
