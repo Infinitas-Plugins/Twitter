@@ -179,9 +179,31 @@
 			}
 		}
 
-		public function onUserProfile(Event $Event) {
+		public function onUserProfile(Event $Event, $user) {
+			$Html = $Event->Handler->_View->Html;
+			$Twitter = $Event->Handler->_View->Twitter;
+			if ($user['User']['twitter_id']) {
+				if(CakeSession::read('Twitter')) {
+					$content = $Html->tag('p', __d('twitter',
+						'Your are currently logged-in with your Twitter account, If you would like to log out click the button below'
+					));
+					$content .= $Twitter->logout();
+				} else {
+					$content = $Html->tag('p', __d('twitter',
+						'Your Twitter account is currently linked, but you are not logged-in to Twitter, click below to login now.'
+					));
+					$content .= $Twitter->login();
+				}
+			} else {
+				$content = $Html->tag('p', __d('twitter',
+					'Your Twitter account is not currently linked, you can do so by clicking the button below.'
+				));
+				$content .= $Twitter->login();
+			}
+
 			return array(
-				'element' => 'profile'
+				'title' => __d('twitter', 'Twitter'),
+				'content' => $content
 			);
 		}
 	}
