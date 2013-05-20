@@ -79,13 +79,11 @@
 		 */
 		public function onCmsBeforeContentRender(Event $Event, $data) {
 			if(isset($config['onCmsBeforeContentRender']) && in_array('tweet', $config['onCmsBeforeContentRender'])) {
-				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
-				return $data['_this']->Twitter->tweetButton(
-					array(
-						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['content']['CmsContent']['title']
-					)
-				);
+				$link = $Event->Handler->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
+				return $Event->Handler->Twitter->tweetButton(array(
+					'url' => Router::url(current($link['slugUrl']), true),
+					'text' => $data['content']['CmsContent']['title']
+				));
 			}
 		}
 
@@ -97,13 +95,11 @@
 		public function onCmsAfterContentRender(Event $Event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onCmsAfterContentRender']) && in_array('tweet', $config['onCmsAfterContentRender'])) {
-				$link = $data['_this']->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
-				return $data['_this']->Twitter->tweetButton(
-					array(
-						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['content']['CmsContent']['title']
-					)
-				);
+				$link = $Event->Handler->Event->trigger('Cms.slugUrl', array('type' => 'contents', 'data' => $data['content']));
+				return $Event->Handler->Twitter->tweetButton(array(
+					'url' => Router::url(current($link['slugUrl']), true),
+					'text' => $data['content']['CmsContent']['title']
+				));
 			}
 		}
 
@@ -115,13 +111,11 @@
 		public function onBlogBeforeContentRender(Event $Event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogBeforeContentRender']) && in_array('tweet', $config['onBlogBeforeContentRender'])) {
-				$link = $data['_this']->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
-				return $data['_this']->Twitter->tweetButton(
-					array(
-						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['post']['BlogPost']['title']
-					)
-				);
+				$link = $Event->Handler->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
+				return $Event->Handler->Twitter->tweetButton(array(
+					'url' => Router::url(current($link['slugUrl']), true),
+					'text' => $data['post']['BlogPost']['title']
+				));
 			}
 		}
 
@@ -133,13 +127,11 @@
 		public function onBlogAfterContentRender(Event $Event, $data) {
 			$config = $this->__getConfig();
 			if(isset($config['onBlogAfterContentRender']) && in_array('tweet', $config['onBlogAfterContentRender'])) {
-				$link = $data['_this']->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
-				return $data['_this']->Twitter->tweetButton(
-					array(
-						'url' => Router::url(current($link['slugUrl']), true),
-						'text' => $data['post']['BlogPost']['title']
-					)
-				);
+				$link = $Event->Handler->Event->trigger('Blog.slugUrl', array('type' => 'posts', 'data' => $data['post']));
+				return $Event->Handler->Twitter->tweetButton(array(
+					'url' => Router::url(current($link['slugUrl']), true),
+					'text' => $data['post']['BlogPost']['title']
+				));
 			}
 		}
 
@@ -170,12 +162,10 @@
 				}
 
 				$short = $Event->Handler->trigger('ShortUrls.getShortUrl', array('url' => $record['url']));
-				return $Event->Handler->_View->Twitter->tweetButton(
-					array(
-						'url' => InfinitasRouter::url(current($short['getShortUrl'])),
-						'text' => $title
-					)
-				);
+				return $Event->Handler->_View->Twitter->tweetButton(array(
+					'url' => InfinitasRouter::url(current($short['getShortUrl'])),
+					'text' => $title
+				));
 			}
 		}
 
